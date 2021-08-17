@@ -10,6 +10,30 @@ enum HTTPMethod{
     CONNECT
 }
 
+pub struct HTTPBody{
+    used: bool,
+    data: String
+}
+
+impl HTTPBody{
+    pub fn new(body: Option<String>) -> HTTPBody{
+        match body{
+            Some(_body) => {
+                HTTPBody{
+                    used: true,
+                    data: _body
+                }
+            }
+            None => {
+                HTTPBody{
+                    used: false,
+                    data: String::new()
+                }
+            }
+        }
+    }
+}
+
 pub struct HTTPResponseHeader{
     header: String
 }
@@ -36,11 +60,11 @@ pub struct HTTPResponse{
     status: u16, // Example: 200 OK
     phrase: String, // Exmple: OK
     header: HTTPResponseHeader,
-    body: String
+    body: HTTPBody
 }
 
 impl HTTPResponse{
-    pub fn new(version: &str, status: u16, header: HTTPResponseHeader, body: String) -> HTTPResponse{
+    pub fn new(version: &str, status: u16, header: HTTPResponseHeader, body: HTTPBody) -> HTTPResponse{
         HTTPResponse{
             version: String::from(version),
             status: status,
@@ -56,7 +80,10 @@ impl HTTPResponse{
         buffer.push_str(serverstr.as_str());
         buffer.push_str(self.header.get().as_str());
         buffer.push_str("\r\n");
-        buffer.push_str(&self.body.to_string());
+        // TODO: Do i need this?
+        if self.body.used{
+            buffer.push_str(&self.body.data.to_string());
+        }
         return buffer;
     }
 
