@@ -16,12 +16,12 @@ pub struct HTTPBody{
 }
 
 impl HTTPBody{
-    pub fn new(body: Option<String>) -> HTTPBody{
+    pub fn new(body: Option<&str>) -> HTTPBody{
         match body{
             Some(_body) => {
                 HTTPBody{
                     used: true,
-                    data: _body
+                    data: String::from(_body)
                 }
             }
             None => {
