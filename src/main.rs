@@ -2,6 +2,9 @@ use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::io::{Read};
 
+pub mod http;
+use http::{HTTPResponse, HTTPResponseHeader};
+
 fn handle_client(mut stream: TcpStream) {
     // Create a buffer with the size of 1024 bytes
     let mut buffer = [0; 1024];
@@ -11,7 +14,7 @@ fn handle_client(mut stream: TcpStream) {
 }
 
 fn main() -> std::io::Result<()> {
-    // Create the TcpListener and unwrap
+    /*// Create the TcpListener and unwrap
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
     println!("Server listening on 127.0.0.1:8080!");
     // Listening for incoming connections
@@ -31,6 +34,10 @@ fn main() -> std::io::Result<()> {
                 println!("Error: {}", e);
             }
         }
-    }
+    }*/
+    let body = String::new();
+    let mut header = HTTPResponseHeader::new();
+    let resp = HTTPResponse::new("HTTP/2", 200, header, body);
+    println!("{}", resp.build());
     Ok(())
 }
