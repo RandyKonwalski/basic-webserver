@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 enum HTTPMethod{
     GET,
     POST,
@@ -8,6 +10,38 @@ enum HTTPMethod{
     TRACE,
     OPTIONS,
     CONNECT
+}
+
+// HTTP: RequestHeader
+struct HTTPRequestHeader{
+    header: String
+}
+
+impl HTTPRequestHeader{
+    pub fn new() -> HTTPRequestHeader{
+        HTTPRequestHeader{
+            header: String::new()
+        }
+    }
+
+    pub fn append(&mut self, property: &str, value: &str){
+        let f = format!("{0}: {1}\r\n", property, value);
+        self.header.push_str(f.as_str());
+    }
+
+    pub fn get(self) -> String {
+        return self.header;
+    }
+}
+
+// HTTP: Request
+struct HTTPRequest{
+    header: HTTPRequestHeader,
+    body: HTTPBody
+}
+
+impl HTTPRequest{
+
 }
 
 pub struct HTTPBody{
