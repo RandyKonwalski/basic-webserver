@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+// HTTP: Method
+
 enum HTTPMethod{
     GET,
     POST,
@@ -13,6 +15,7 @@ enum HTTPMethod{
 }
 
 // HTTP: RequestHeader
+
 struct HTTPRequestHeader{
     header: String
 }
@@ -35,6 +38,7 @@ impl HTTPRequestHeader{
 }
 
 // HTTP: Request
+
 struct HTTPRequest{
     header: HTTPRequestHeader,
     body: HTTPBody
@@ -43,6 +47,8 @@ struct HTTPRequest{
 impl HTTPRequest{
 
 }
+
+// HTTP: Body
 
 pub struct HTTPBody{
     used: bool,
@@ -68,6 +74,8 @@ impl HTTPBody{
     }
 }
 
+// HTTP: ResponseHeader
+
 pub struct HTTPResponseHeader{
     header: String
 }
@@ -88,6 +96,8 @@ impl HTTPResponseHeader{
         return self.header;
     }
 }
+
+// HTTP: Response
 
 pub struct HTTPResponse{
     version: String, // Example: HTTP/1.1
